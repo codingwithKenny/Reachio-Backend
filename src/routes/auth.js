@@ -6,7 +6,7 @@ const route = express.Router()
 
 route.post('/signup',handleSignUp)
 route.post('/login',handleLogin  )
-router.get("/check-auth", verifyToken, handleCheckAuth); // ✅ Protected route
+route.get("/check-auth", verifyToken, handleCheckAuth); // ✅ Protected route
 
 
 module.exports = route; 
