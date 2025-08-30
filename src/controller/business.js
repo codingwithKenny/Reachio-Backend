@@ -38,10 +38,8 @@ const createBusiness = async (req, res) => {
 
 // Get businesses for a specific user
 const getUserBusinesses = async (req, res) => {
-  console.log("GET /api/business called"); // <- add this
   try {
     const { userId } = req.query;
-    console.log("userId:", userId);
 
     if (!userId) return res.status(400).json({ error: "userId is required" });
 
@@ -61,6 +59,45 @@ const getUserBusinesses = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch businesses" });
   }
 };
+
+// controller/business.js
+
+
+
+
+
+ const updateBusiness = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const updatedBusiness = await prisma.business.update({
+      where: { id: Number(id) }, // id must match DB type
+      data: { name },
+    });
+
+    res.json(updatedBusiness);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteBusiness = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id)
+
+    await prisma.business.delete({
+      where: { id: Number(id) },
+    });
+
+    res.json({ message: "Business deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
 
 
@@ -144,4 +181,4 @@ const getUserBusinesses = async (req, res) => {
 // };
 
 
-module.exports = {createBusiness, getUserBusinesses };
+module.exports = {createBusiness, getUserBusinesses ,updateBusiness, deleteBusiness};

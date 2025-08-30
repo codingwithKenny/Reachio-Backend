@@ -12,9 +12,11 @@ app.use(express.json());
 // Routes
 const authRoute = require('./src/routes/auth');
 const businessRoutes = require('./src/routes/business');
+const customerRoutes = require('./src/routes/customer');
 
 app.use("/api/auth", authRoute); // mount under /api/auth
 app.use("/api/business", businessRoutes);
+app.use("/api/customer", customerRoutes);
 
 
 // Test route
